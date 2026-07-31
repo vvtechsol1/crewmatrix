@@ -37,6 +37,7 @@ export async function fromSupabase<T>(table: string, query?: string, jwt?: strin
       },
       // marketplace listings change often enough that a short window is right
       next: { revalidate: 30 },
+      signal: AbortSignal.timeout(5_000),
     });
 
     if (!res.ok) return null;

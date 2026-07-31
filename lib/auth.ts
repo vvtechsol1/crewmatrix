@@ -46,6 +46,7 @@ async function authFetch<T>(path: string, body: unknown): Promise<{ ok: true; da
       },
       body: JSON.stringify(body),
       cache: "no-store",
+      signal: AbortSignal.timeout(8_000),
     });
 
     const json = (await res.json()) as T & { msg?: string; error_description?: string; message?: string };
@@ -127,6 +128,7 @@ export const getVerifiedSession = cache(async (): Promise<Session | null> => {
         Authorization: `Bearer ${session.accessToken}`,
       },
       cache: "no-store",
+      signal: AbortSignal.timeout(4_000),
     });
     if (!response.ok) return null;
 
