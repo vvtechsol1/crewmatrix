@@ -231,7 +231,7 @@ export function FindProsExperience() {
             <Link
               href="/signup"
               style={{ color: "#ffffff", width: "max-content" }}
-              className="inline-flex min-h-12 items-center justify-start rounded-lg bg-hi-500 px-5 text-sm font-semibold shadow-[0_14px_32px_rgba(38,73,216,.2)] transition-transform hover:-translate-y-0.5 hover:bg-hi-400"
+              className="inline-flex min-h-12 items-center justify-start rounded-lg bg-hi-500 px-5 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(38,73,216,.2)] transition-transform hover:-translate-y-0.5 hover:bg-hi-400"
             >
               Find qualified crews <ArrowRight size={16} className="ml-2" />
             </Link>

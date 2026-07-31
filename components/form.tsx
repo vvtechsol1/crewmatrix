@@ -71,7 +71,7 @@ export function Button({
       {...props}
       className={clsx(
         "inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50",
-        variant === "primary" && "bg-hi-500 text-ink-950 hover:bg-hi-400",
+        variant === "primary" && "bg-hi-500 text-white hover:bg-hi-400",
         variant === "ghost" && "border border-ink-700 text-ink-100 hover:bg-ink-800",
         variant === "quiet" && "text-ink-300 hover:text-ink-100",
         className,
@@ -161,7 +161,7 @@ export function ChoiceCard({
         <span
           className={clsx(
             "mb-3 grid size-9 place-items-center rounded-lg",
-            selected ? "bg-hi-500 text-ink-950" : "bg-ink-800 text-ink-300",
+            selected ? "bg-hi-500 text-white" : "bg-ink-800 text-ink-300",
           )}
         >
           {icon}

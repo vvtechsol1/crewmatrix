@@ -137,7 +137,7 @@ export function ButtonLink({
       className={clsx(
         "inline-flex min-h-11 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors",
         variant === "primary"
-          ? "bg-hi-500 text-ink-950 hover:bg-hi-400"
+          ? "bg-hi-500 text-white hover:bg-hi-400"
           : "border border-ink-700 text-ink-100 hover:bg-ink-800",
         className,
       )}

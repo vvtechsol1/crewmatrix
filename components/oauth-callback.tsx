@@ -54,7 +54,7 @@ export function OAuthCallback() {
         <>
           <div className="text-lg font-medium">Sign-in did not complete</div>
           <p className="mt-2 text-sm text-ink-400">{error}</p>
-          <a href="/login" className="mt-6 rounded-md bg-hi-500 px-4 py-2 text-sm font-medium text-ink-950">
+          <a href="/login" className="mt-6 rounded-md bg-hi-500 px-4 py-2 text-sm font-medium text-white">
             Back to log in
           </a>
         </>

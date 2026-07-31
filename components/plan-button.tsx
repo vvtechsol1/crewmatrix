@@ -40,7 +40,7 @@ export function PlanButton({ plan }: { plan: PlanTier }) {
         className={clsx(
           "min-h-11 w-full rounded-md px-4 py-2 text-sm font-semibold transition-colors",
           plan.featured
-            ? "bg-hi-500 text-ink-950 hover:bg-hi-400"
+            ? "bg-hi-500 text-white hover:bg-hi-400"
             : "border border-ink-700 text-ink-100 hover:bg-ink-800",
           state === "loading" && "opacity-60",
         )}

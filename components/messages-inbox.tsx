@@ -154,7 +154,7 @@ export function MessagesInbox({ threads }: { threads: Thread[] }) {
             />
             <button
               type="submit"
-              className="inline-flex items-center gap-2 rounded-md bg-hi-500 px-4 text-sm font-medium text-ink-950 hover:bg-hi-400"
+              className="inline-flex items-center gap-2 rounded-md bg-hi-500 px-4 text-sm font-medium text-white hover:bg-hi-400"
             >
               <Send size={15} />
               Send

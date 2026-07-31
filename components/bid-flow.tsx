@@ -82,7 +82,7 @@ export function BidFlow({
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link
             href="/dashboard/sub"
-            className="rounded-md bg-hi-500 px-4 py-2 text-sm font-medium text-ink-950 hover:bg-hi-400"
+            className="rounded-md bg-hi-500 px-4 py-2 text-sm font-medium text-white hover:bg-hi-400"
           >
             Back to my bids
           </Link>

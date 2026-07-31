@@ -252,7 +252,7 @@ export function CheckoutFlow() {
                   onClick={() => setCycle(c)}
                   className={clsx(
                     "min-h-11 flex-1 rounded-md px-3 py-1.5 text-xs font-medium capitalize transition-colors",
-                    cycle === c ? "bg-hi-500 text-ink-950" : "text-ink-400 hover:text-ink-100",
+                    cycle === c ? "bg-hi-500 text-white" : "text-ink-400 hover:text-ink-100",
                   )}
                 >
                   {c}
