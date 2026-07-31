@@ -1,4 +1,5 @@
 import { BadgeCheck, Bell, Search } from "lucide-react";
+import { BrandLogo } from "@/components/brand-logo";
 
 /**
  * A browser-framed preview of the contractor workspace — the "what you get
@@ -25,8 +26,7 @@ export function ProductFrame() {
         {/* mini sidebar */}
         <div className="border-r border-ink-800 bg-ink-900/60 p-3 max-sm:hidden">
           <div className="flex items-center gap-1.5">
-            <span className="grid size-5 place-items-center rounded bg-hi-500 text-[0.55rem] font-bold text-white">C</span>
-            <span className="font-display text-[0.7rem] font-bold">CrewMatrix</span>
+            <BrandLogo imageClassName="size-5" textClassName="text-[0.7rem]" />
           </div>
           <div className="mt-3 space-y-1">
             {["Overview", "Post a project", "Find subs", "Messages", "Settings"].map((l, i) => (

@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Check, ShieldCheck } from "lucide-react";
+import { BrandLogo } from "@/components/brand-logo";
 
 const marketplaceLinks = [
   { href: "/find-work", label: "Find work" },
@@ -48,14 +48,7 @@ export function SiteFooter() {
       <div className="site-footer-layout relative mx-auto max-w-6xl gap-12 px-5 py-14 sm:py-16">
         <div>
           <Link href="/" className="inline-flex items-center gap-3" aria-label="CrewMatrix home">
-            <Image
-              src="/brand/crewmatrix-monogram.png"
-              alt=""
-              width={48}
-              height={48}
-              className="size-12 object-contain"
-            />
-            <span className="font-display text-xl font-bold tracking-[-.03em]">CrewMatrix</span>
+            <BrandLogo imageClassName="size-12" textClassName="text-xl" />
           </Link>
 
           <p className="mt-5 max-w-md text-[15px] leading-7 text-white/65">

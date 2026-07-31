@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { BrandLogo } from "@/components/brand-logo";
 import {
   Banknote,
   Building2,
@@ -42,10 +43,7 @@ export function AppSidebar() {
     <aside className="hidden w-60 shrink-0 border-r border-ink-800 bg-ink-900/60 lg:block">
       <div className="sticky top-0 flex h-screen flex-col">
         <Link href="/" className="flex items-center gap-2 px-5 py-4 font-semibold tracking-tight">
-          <span className="grid size-8 place-items-center rounded-md bg-hi-500 text-ink-950">
-            <HardHat size={17} strokeWidth={2.4} />
-          </span>
-          CrewMatrix
+          <BrandLogo imageClassName="size-9" />
         </Link>
 
         {/* which workspace am I in */}

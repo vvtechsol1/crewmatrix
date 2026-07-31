@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ShieldCheck, Timer, Users } from "lucide-react";
+import { BrandLogo } from "@/components/brand-logo";
 
 const points = [
   { Icon: Users, text: "Contractors and crews across 12 trades" },
@@ -18,14 +18,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <div className="flex flex-col">
         <div className="flex items-center justify-between border-b border-ink-800 px-6 py-4">
           <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-            <Image
-              src="/brand/crewmatrix-monogram.png"
-              alt=""
-              width={36}
-              height={36}
-              className="size-9 shrink-0 object-contain"
-            />
-            <span className="font-display font-bold tracking-[-.035em]">CrewMatrix</span>
+            <BrandLogo imageClassName="size-9" />
           </Link>
           <Link href="/" className="text-sm text-ink-400 hover:text-ink-100">
             Back to site

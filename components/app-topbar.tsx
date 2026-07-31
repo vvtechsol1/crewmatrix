@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { BrandLogo } from "@/components/brand-logo";
 import {
   Banknote,
   Bell,
@@ -95,9 +96,7 @@ export function AppTopbar() {
       <header className="sticky top-0 z-40 border-b border-ink-800 bg-ink-950/85 backdrop-blur">
         <div className="flex items-center gap-3 px-5 py-3">
           <Link href="/" className="flex items-center gap-2 font-semibold lg:hidden">
-            <span className="grid size-7 place-items-center rounded-md bg-hi-500 text-ink-950">
-              <HardHat size={15} strokeWidth={2.4} />
-            </span>
+            <BrandLogo imageClassName="size-8" showText={false} />
           </Link>
 
           <button
@@ -173,10 +172,7 @@ export function AppTopbar() {
           >
             <div className="flex items-center justify-between border-b border-ink-800 px-5 py-4">
               <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-                <span className="grid size-8 place-items-center rounded-md bg-hi-500 text-ink-950">
-                  <HardHat size={17} strokeWidth={2.4} />
-                </span>
-                CrewMatrix
+                <BrandLogo imageClassName="size-9" />
               </Link>
               <button onClick={() => { setOpen(false); menuButtonRef.current?.focus(); }} aria-label="Close menu" className="grid size-11 place-items-center rounded-md hover:bg-ink-800">
                 <X size={19} className="text-ink-400" />

@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { MobileNav } from "@/components/mobile-nav";
+import { BrandLogo } from "@/components/brand-logo";
 
 const links = [
   { href: "/#how-it-works", label: "How it works" },
@@ -46,17 +46,11 @@ export function SiteNav() {
       >
         <div className="mx-auto flex max-w-6xl items-center gap-6 px-5 py-3.5">
           <Link href="/" className="flex items-center gap-2.5 font-semibold tracking-tight">
-            <Image
-              src="/brand/crewmatrix-monogram.png"
-              alt=""
-              width={40}
-              height={40}
+            <BrandLogo
               priority
-              className="size-10 shrink-0 object-contain"
+              imageClassName="size-10"
+              textClassName={clsx("text-lg transition-colors", overHero ? "text-white" : "text-ink-100")}
             />
-            <span className={clsx("font-display text-lg font-bold tracking-[-.035em] transition-colors", overHero ? "text-white" : "text-ink-100")}>
-              CrewMatrix
-            </span>
           </Link>
 
           <nav className="ml-2 hidden gap-1 text-sm lg:flex">
