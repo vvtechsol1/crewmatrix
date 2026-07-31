@@ -22,9 +22,10 @@ async function read<T>(
   fallback: T[],
   map: (row: Record<string, unknown>) => T,
   query?: string,
+  jwt?: string,
 ): Promise<T[]> {
   if (!supabaseConfigured()) return fallback;
-  const rows = await fromSupabase<Record<string, unknown>>(table, query);
+  const rows = await fromSupabase<Record<string, unknown>>(table, query, jwt);
   if (!rows) return fallback;
   return rows.map(map);
 }
@@ -35,8 +36,14 @@ export async function listCompanies(role?: Role): Promise<Company[]> {
 }
 
 export async function getCompany(id: string): Promise<Company | undefined> {
-  const all = await listCompanies();
-  return all.find((c) => c.id === id);
+  const fallback = companies.filter((company) => company.id === id);
+  const rows = await read<Company>(
+    "companies",
+    fallback,
+    toCompany,
+    `select=*&id=eq.${encodeURIComponent(id)}&limit=1`,
+  );
+  return rows[0];
 }
 
 export interface ProjectFilter {
@@ -61,20 +68,42 @@ export async function listProjects(filter: ProjectFilter = {}): Promise<Project[
 }
 
 export async function getProject(id: string): Promise<Project | undefined> {
-  const all = await listProjects();
-  return all.find((p) => p.id === id);
+  const fallback = projects.filter((project) => project.id === id);
+  const rows = await read<Project>(
+    "projects",
+    fallback,
+    toProject,
+    `select=*&id=eq.${encodeURIComponent(id)}&limit=1`,
+  );
+  return rows[0];
 }
 
-export async function listBids(opts: { projectId?: string; subcontractorId?: string } = {}): Promise<Bid[]> {
-  const all = await read<Bid>("bids", bids, toBid, "select=*");
+export async function listBids(
+  opts: { projectId?: string; subcontractorId?: string } = {},
+  jwt?: string,
+): Promise<Bid[]> {
+  const query = [
+    "select=*",
+    opts.projectId ? `project_id=eq.${encodeURIComponent(opts.projectId)}` : "",
+    opts.subcontractorId ? `subcontractor_id=eq.${encodeURIComponent(opts.subcontractorId)}` : "",
+  ]
+    .filter(Boolean)
+    .join("&");
+  const all = await read<Bid>("bids", bids, toBid, query, jwt);
   return all
     .filter((b) => (opts.projectId ? b.projectId === opts.projectId : true))
     .filter((b) => (opts.subcontractorId ? b.subcontractorId === opts.subcontractorId : true))
     .sort((a, b) => a.amount - b.amount);
 }
 
-export async function listMessages(projectId: string): Promise<Message[]> {
-  const all = await read<Message>("messages", messages, toMessage, "select=*&order=sent_at.asc");
+export async function listMessages(projectId: string, jwt?: string): Promise<Message[]> {
+  const all = await read<Message>(
+    "messages",
+    messages,
+    toMessage,
+    `select=*&project_id=eq.${encodeURIComponent(projectId)}&order=sent_at.asc`,
+    jwt,
+  );
   return all.filter((m) => m.projectId === projectId);
 }
 

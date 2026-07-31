@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import { cache } from "react";
 
 /**
  * Supabase Auth over its REST endpoints.
@@ -104,11 +105,37 @@ export async function readSession(): Promise<Session | null> {
   if (!raw) return null;
   try {
     const s = JSON.parse(raw) as Session;
-    return s.accessToken ? s : null;
+    return s.accessToken && s.refreshToken && s.userId && s.expiresAt > Date.now() ? s : null;
   } catch {
     return null;
   }
 }
+
+/**
+ * A cookie alone is not authorization: JSON cookies can be forged. Validate
+ * the contained Supabase JWT before any private workspace is rendered. React
+ * cache keeps this to one Auth request when a layout and page both need it.
+ */
+export const getVerifiedSession = cache(async (): Promise<Session | null> => {
+  const session = await readSession();
+  if (!session || !authConfigured()) return null;
+
+  try {
+    const response = await fetch(`${supabaseUrl()}/auth/v1/user`, {
+      headers: {
+        apikey: anonKey(),
+        Authorization: `Bearer ${session.accessToken}`,
+      },
+      cache: "no-store",
+    });
+    if (!response.ok) return null;
+
+    const user = (await response.json()) as { id?: string; email?: string };
+    return user.id === session.userId ? session : null;
+  } catch {
+    return null;
+  }
+});
 
 export async function clearSession() {
   (await cookies()).delete(SESSION_COOKIE);

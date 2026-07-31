@@ -1,28 +1,12 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { CalendarDays, Check, MapPin, Timer } from "lucide-react";
-import { getCompany, getProject, listBids, listMessages, listProjects } from "@/lib/db";
+import { getProject, listBids, listCompanies, listMessages } from "@/lib/db";
 import { money, moneyRange, shortDate, sinceLabel } from "@/lib/format";
 import { Avatar, ButtonLink, Card, Pill, Rating, VerifyBadge } from "@/components/ui";
+import { getVerifiedSession } from "@/lib/auth";
 
-export async function generateStaticParams() {
-  const all = await listProjects();
-  return all.map((p) => ({ id: p.id }));
-}
-
-export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const project = await getProject(id);
-  if (!project) return { title: "Project not found — CrewMatrix" };
-
-  return {
-    title: `${project.title} — CrewMatrix`,
-    description: `${project.trade} work in ${project.city}, ${project.state}. ${moneyRange(
-      project.budgetLow,
-      project.budgetHigh,
-    )} over ${project.durationWeeks} weeks.`,
-  };
-}
+export const metadata = { title: "Project workspace — CrewMatrix" };
 
 const bidTone = {
   submitted: "neutral",
@@ -32,17 +16,19 @@ const bidTone = {
 } as const;
 
 export default async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const project = await getProject(id);
+  const [{ id }, session] = await Promise.all([params, getVerifiedSession()]);
+  if (!session) notFound();
+
+  const [project, companies, bids, thread] = await Promise.all([
+    getProject(id),
+    listCompanies(),
+    listBids({ projectId: id }, session.accessToken),
+    listMessages(id, session.accessToken),
+  ]);
   if (!project) notFound();
 
-  const [contractor, bids, thread] = await Promise.all([
-    getCompany(project.contractorId),
-    listBids({ projectId: project.id }),
-    listMessages(project.id),
-  ]);
-
-  const bidders = await Promise.all(bids.map((b) => getCompany(b.subcontractorId)));
+  const contractor = companies.find((company) => company.id === project.contractorId);
+  const bidders = bids.map((bid) => companies.find((company) => company.id === bid.subcontractorId));
   const low = bids.length ? Math.min(...bids.map((b) => b.amount)) : 0;
   const high = bids.length ? Math.max(...bids.map((b) => b.amount)) : 0;
 
