@@ -60,6 +60,10 @@ a {
   text-decoration: none;
 }
 
+:where(a[href], button:not(:disabled), [role="button"]) {
+  cursor: pointer;
+}
+
 :where(a, button, input, select, textarea):focus-visible {
   outline: 3px solid rgb(38 73 216 / 0.72);
   outline-offset: 3px;

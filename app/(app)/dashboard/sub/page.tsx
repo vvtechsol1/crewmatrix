@@ -77,7 +77,7 @@ export default async function SubDashboard() {
           </div>
 
           {/* bids */}
-          <h2 className="mt-10 text-xl font-semibold tracking-tight">Your bids</h2>
+          <h2 id="bids" className="scroll-mt-24 mt-10 text-xl font-semibold tracking-tight">Your bids</h2>
           <Card className="mt-4 divide-y divide-ink-800">
             {myBids.map((b, i) => {
               const p = bidProjects[i];
@@ -108,7 +108,7 @@ export default async function SubDashboard() {
           </Card>
 
           {/* payouts */}
-          <h2 className="mt-10 text-xl font-semibold tracking-tight">Payouts</h2>
+          <h2 id="payouts" className="scroll-mt-24 mt-10 text-xl font-semibold tracking-tight">Payouts</h2>
           <Card className="mt-4 overflow-x-auto">
             <table className="w-full min-w-[34rem] text-sm">
               <thead>

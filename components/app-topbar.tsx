@@ -114,16 +114,23 @@ export function AppTopbar() {
           <div className="text-sm font-medium">{title}</div>
 
           <div className="ml-auto flex items-center gap-1">
-            <button className="grid size-11 place-items-center rounded-md text-ink-400 hover:bg-ink-800 hover:text-ink-100" aria-label="Search">
+            <Link
+              href={isSub ? "/find-work" : "/find-pros"}
+              className="grid size-11 place-items-center rounded-md text-ink-400 hover:bg-ink-800 hover:text-ink-100"
+              aria-label={isSub ? "Find work" : "Find subcontractors"}
+              title={isSub ? "Find work" : "Find subcontractors"}
+            >
               <Search size={17} />
-            </button>
-            <button
+            </Link>
+            <Link
+              href="/messages"
               className="relative grid size-11 place-items-center rounded-md text-ink-400 hover:bg-ink-800 hover:text-ink-100"
-              aria-label="Notifications"
+              aria-label="Messages and notifications"
+              title="Messages and notifications"
             >
               <Bell size={17} />
               <span className="absolute right-1.5 top-1.5 size-1.5 rounded-full bg-hi-500" />
-            </button>
+            </Link>
             <Link
               href="/settings"
               className="ml-1 grid size-8 place-items-center rounded-full bg-ink-800 text-xs font-medium text-ink-300"
@@ -199,7 +206,7 @@ export function AppTopbar() {
 
             <nav className="mt-3 flex-1 space-y-0.5 px-3">
               {nav.map((n) => {
-                const active = path === n.href.split("#")[0];
+                const active = !n.href.includes("#") && path === n.href;
                 return (
                   <Link
                     key={n.href}

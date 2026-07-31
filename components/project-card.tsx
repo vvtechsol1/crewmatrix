@@ -20,7 +20,12 @@ const statusLabel = {
 
 export function ProjectCard({ project, contractor }: { project: Project; contractor?: Company }) {
   return (
-    <Card className="group p-5 transition-colors hover:border-ink-600">
+    <Link
+      href={`/projects/${project.id}`}
+      aria-label={`View project: ${project.title}`}
+      className="group block rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-hi-500 focus-visible:ring-offset-2"
+    >
+    <Card className="p-5 transition-colors group-hover:border-ink-600">
       <div className="flex items-start gap-4">
         {contractor && <Avatar company={contractor} size={42} />}
 
@@ -32,9 +37,7 @@ export function ProjectCard({ project, contractor }: { project: Project; contrac
           </div>
 
           <h3 className="mt-2 text-base font-medium leading-snug">
-            <Link href={`/projects/${project.id}`} className="hover:text-hi-500">
-              {project.title}
-            </Link>
+            <span className="transition-colors group-hover:text-hi-500">{project.title}</span>
           </h3>
 
           {contractor && (
@@ -61,5 +64,6 @@ export function ProjectCard({ project, contractor }: { project: Project; contrac
         </div>
       </div>
     </Card>
+    </Link>
   );
 }
