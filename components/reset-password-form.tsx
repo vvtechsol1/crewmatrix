@@ -42,7 +42,7 @@ export function ResetPasswordForm() {
     setError(undefined);
     setBusy(true);
     try {
-      const response = await fetch("/api/auth/password-reset", {
+      const response = await fetch("/api/auth/account-recovery", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ accessToken, password }),

@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Enter a valid email address." }, { status: 400 });
   }
 
-  const redirectTo = new URL("/reset-password", req.url).toString();
+  const redirectTo = new URL("/account/new-password", req.url).toString();
   try {
     const response = await fetch(
       `${supabaseUrl()}/auth/v1/recover?redirect_to=${encodeURIComponent(redirectTo)}`,
