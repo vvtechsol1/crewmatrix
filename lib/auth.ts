@@ -61,8 +61,14 @@ async function authFetch<T>(path: string, body: unknown): Promise<{ ok: true; da
   }
 }
 
-export async function signUp(email: string, password: string, meta: Record<string, unknown> = {}) {
-  return authFetch<TokenResponse>("/signup", { email, password, data: meta });
+export async function signUp(
+  email: string,
+  password: string,
+  meta: Record<string, unknown> = {},
+  redirectTo?: string,
+) {
+  const path = redirectTo ? `/signup?redirect_to=${encodeURIComponent(redirectTo)}` : "/signup";
+  return authFetch<TokenResponse>(path, { email, password, data: meta });
 }
 
 export async function signIn(email: string, password: string) {

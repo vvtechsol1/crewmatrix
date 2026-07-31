@@ -8,6 +8,35 @@ export function ForgotPasswordForm() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string>();
   const [sent, setSent] = useState(false);
+  const [busy, setBusy] = useState(false);
+
+  async function submit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      setError("Enter the email on the account.");
+      return;
+    }
+
+    setError(undefined);
+    setBusy(true);
+    try {
+      const response = await fetch("/api/auth/password-reset", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (!response.ok) {
+        setError("We could not send the reset email. Please try again shortly.");
+        setBusy(false);
+        return;
+      }
+      setSent(true);
+    } catch {
+      setError("We could not reach the email service. Please try again shortly.");
+    } finally {
+      setBusy(false);
+    }
+  }
 
   if (sent) {
     return (
@@ -31,15 +60,7 @@ export function ForgotPasswordForm() {
     <form
       className="mt-8 space-y-4"
       noValidate
-      onSubmit={(e) => {
-        e.preventDefault();
-        if (!/^\S+@\S+\.\S+$/.test(email)) {
-          setError("Enter the email on the account.");
-          return;
-        }
-        setError(undefined);
-        setSent(true);
-      }}
+      onSubmit={submit}
     >
       <Field label="Email" htmlFor="reset-email" error={error}>
         <Input
@@ -52,8 +73,8 @@ export function ForgotPasswordForm() {
         />
       </Field>
 
-      <Button type="submit" className="w-full">
-        Send reset link
+      <Button type="submit" disabled={busy} className="w-full">
+        {busy ? "Sending secure link…" : "Send reset link"}
       </Button>
     </form>
   );

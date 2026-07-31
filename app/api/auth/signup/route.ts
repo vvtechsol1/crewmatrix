@@ -38,7 +38,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Passwords must be at least 8 characters." }, { status: 400 });
   }
 
-  const created = await signUp(email, password, { full_name: name, role });
+  const callback = new URL("/auth/callback", req.url);
+  callback.searchParams.set("next", `/onboarding?role=${role}`);
+  const created = await signUp(email, password, { full_name: name, role }, callback.toString());
   if (!created.ok) {
     return NextResponse.json({ error: created.error }, { status: 400 });
   }
