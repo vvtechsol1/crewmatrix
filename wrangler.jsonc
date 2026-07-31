@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "crewmatrix",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-11-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "vars": {
+    // Both of these are safe in source: the publishable key is designed to sit
+    // in a browser, and row-level security is what actually guards the data.
+    // The secret key is never referenced by this worker.
+    "SUPABASE_URL": "https://wwtdyfadxbwpoezxrcsq.supabase.co",
+    "SUPABASE_ANON_KEY": "sb_publishable_3ycsBTMV20D8jrqqsFLRtg_uqPTOXbE"
+  }
+}

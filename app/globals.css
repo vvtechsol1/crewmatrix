@@ -1,0 +1,264 @@
+@import "tailwindcss";
+
+/*
+ * Light theme, royal blue + gold.
+ *
+ * The scale keeps its old names (ink-950 = page surface … ink-100 = strongest
+ * text) so every component flips theme without touching a single class name.
+ */
+@theme {
+  --color-ink-950: #ffffff; /* page */
+  --color-ink-900: #f6f8fc; /* panels, cards */
+  --color-ink-800: #e7ecf4; /* hairlines, chips */
+  --color-ink-700: #d2dae7; /* input borders */
+  --color-ink-600: #68788c; /* faint text — still AA on white */
+  --color-ink-400: #5c6c80; /* muted text */
+  --color-ink-300: #45566b; /* secondary text */
+  --color-ink-100: #0e1b33; /* primary text — deep navy */
+
+  /* royal blue — primary action colour */
+  --color-hi-500: #2649d8;
+  --color-hi-400: #1e3dbd; /* hover: darker, as light themes expect */
+  --color-hi-600: #17309c;
+
+  /* gold — vivid construction amber (BuildingX #ffb600 lineage) */
+  --color-gold-500: #f5b301;
+  --color-gold-400: #ffc63a;
+  --color-gold-600: #855f00; /* gold used as text */
+
+  /* deep navy — bands, overlays (BuildingX #002e5b lineage) */
+  --color-navy-900: #0e2a5c;
+  --color-navy-950: #0a1c40;
+
+  --color-ok-500: #087747;
+  --color-warn-500: #785600;
+  --color-bad-500: #b63828;
+
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Space Grotesk", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  background: var(--color-ink-950);
+  color: var(--color-ink-100);
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid rgb(38 73 216 / 0.72);
+  outline-offset: 3px;
+}
+
+:where(button, input, select, textarea):disabled {
+  cursor: not-allowed;
+}
+
+::selection {
+  background: var(--color-hi-500);
+  color: #ffffff;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-ink-700) transparent;
+}
+
+/* ------------------------------------------------------------------ */
+/* display type                                                        */
+/* ------------------------------------------------------------------ */
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+}
+
+.text-display-xl {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  font-size: clamp(2.6rem, 7.5vw, 5.75rem);
+}
+
+.text-display-lg {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.text-display-md {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+}
+
+/* the gold word inside a headline */
+.accent-gold {
+  color: var(--color-gold-500);
+}
+
+/* Pricing hierarchy stays deterministic during dev CSS hot reloads. */
+.pricing-card {
+  min-height: 27.5rem;
+  border-radius: 1.75rem;
+}
+
+.pricing-price {
+  font-size: clamp(2.75rem, 5vw, 3.25rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+
+/* ------------------------------------------------------------------ */
+/* texture: blueprint grid (royal blue on white — an actual blueprint) */
+/* ------------------------------------------------------------------ */
+
+.bg-blueprint {
+  background-image:
+    linear-gradient(to right, rgb(38 73 216 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(38 73 216 / 0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black 30%, transparent 78%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black 30%, transparent 78%);
+}
+
+.bg-grain {
+  position: relative;
+}
+.bg-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.025 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ------------------------------------------------------------------ */
+/* marquee                                                             */
+/* ------------------------------------------------------------------ */
+
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-left var(--marquee-duration, 38s) linear infinite;
+}
+.marquee-track[data-direction="right"] {
+  animation-name: marquee-right;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ------------------------------------------------------------------ */
+/* motion primitives (GSAP drives these; CSS only sets the start pose) */
+/* ------------------------------------------------------------------ */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  will-change: transform, opacity;
+}
+
+[data-reveal-child] > * {
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: transform, opacity;
+}
+
+/* children sweep in left-to-right */
+[data-reveal-row] > * {
+  opacity: 0;
+  transform: translateX(-36px);
+  will-change: transform, opacity;
+}
+
+.split-line {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+.split-word {
+  display: inline-block;
+  transform: translateY(110%);
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------------ */
+/* hero float chips                                                    */
+/* ------------------------------------------------------------------ */
+
+@keyframes float-a {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+@keyframes float-b {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+.float-a { animation: float-a 7s ease-in-out infinite; }
+.float-b { animation: float-b 5.5s ease-in-out 0.8s infinite; }
+.float-c { animation: float-a 6.2s ease-in-out 1.6s infinite; }
+
+/* step card / ghost number swap-in */
+@keyframes step-in {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: none; }
+}
+.animate-step-in {
+  animation: step-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Everything above is undone instantly when the visitor asks for calm. */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal-child] > *,
+  [data-reveal-row] > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .split-word {
+    transform: none !important;
+  }
+  .marquee-track,
+  .float-a,
+  .float-b,
+  .float-c {
+    animation: none !important;
+  }
+  html {
+    scroll-behavior: auto !important;
+  }
+}

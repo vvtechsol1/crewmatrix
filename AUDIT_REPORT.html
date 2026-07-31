@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CrewMatrix — Launch Readiness Audit</title>
+  <style>
+    :root{--navy:#0e1b33;--blue:#2649d8;--gold:#f5b301;--green:#087747;--amber:#855f00;--red:#b63828;--muted:#5c6c80;--line:#dfe6f1;--soft:#f5f7fb;--white:#fff}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#eef2f8;color:var(--navy);font:15px/1.65 Inter,Segoe UI,Arial,sans-serif}
+    .page{max-width:1180px;margin:32px auto;background:var(--white);box-shadow:0 20px 65px #10244b1a}
+    header{padding:48px 56px;background:linear-gradient(135deg,#0a1c40,#17309c);color:#fff;position:relative;overflow:hidden}
+    header:after{content:"";position:absolute;width:350px;height:350px;border-radius:50%;right:-110px;top:-210px;background:#f5b30122}
+    .brand{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:800}.mark{font-size:26px}.eyebrow{margin-top:36px;color:#ffc63a;font:700 12px/1.2 ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase}
+    h1{max-width:760px;margin:12px 0 10px;font-size:clamp(34px,5vw,58px);line-height:1.02;letter-spacing:-.04em}.lead{max-width:760px;color:#dce5ff;font-size:17px}.meta{margin-top:26px;color:#bac8ed;font-size:13px}
+    main{padding:46px 56px 60px}.verdict{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;padding:22px;border:1px solid #f0ca6f;background:#fff9e8;border-radius:16px}.verdict-badge{padding:10px 15px;border-radius:999px;background:#8a5d00;color:#fff;font-weight:800;letter-spacing:.05em;white-space:nowrap}.verdict h2{margin:0;font-size:24px}.verdict p{margin:3px 0 0;color:#66511b}
+    h2{margin:46px 0 14px;font-size:27px;letter-spacing:-.025em}h3{margin:0 0 5px;font-size:17px}.sub{color:var(--muted);margin:-7px 0 20px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{border:1px solid var(--line);border-radius:14px;padding:18px;background:#fff}.card p{margin:0;color:var(--muted)}
+    .status{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:5px 10px;font-weight:750;font-size:12px}.pass{background:#e7f6ee;color:var(--green)}.partial{background:#fff3d6;color:var(--amber)}.blocked{background:#fae9e6;color:var(--red)}
+    table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:14px;overflow:hidden}th,td{padding:13px 15px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--soft);font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}tr:last-child td{border-bottom:0}td:first-child{font-weight:700;width:25%}td:last-child{width:125px}
+    ul,ol{padding-left:22px}.checklist{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel{border:1px solid var(--line);border-radius:14px;padding:20px}.panel ul{margin:10px 0 0}.panel li{margin:6px 0}.done-panel{border-top:4px solid var(--green)}.todo-panel{border-top:4px solid var(--red)}
+    .config{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px}.yes{color:var(--green);font-weight:800}.no{color:var(--red);font-weight:800}.callout{margin-top:20px;border-left:5px solid var(--blue);background:#f1f4ff;padding:16px 18px}.callout strong{color:var(--blue)}
+    .priority{display:inline-block;min-width:35px;text-align:center;margin-right:8px;padding:2px 7px;border-radius:5px;background:var(--red);color:#fff;font:800 11px/1.6 ui-monospace,monospace}.p1{background:var(--amber)}
+    footer{padding:25px 56px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;background:var(--soft)}
+    @media(max-width:760px){.page{margin:0}.page header,main{padding:32px 20px}.cards,.checklist{grid-template-columns:1fr}.verdict{grid-template-columns:1fr}table{display:block;overflow-x:auto}footer{padding:22px 20px}}
+    @media print{body{background:#fff}.page{margin:0;max-width:none;box-shadow:none}.card,.panel,table{break-inside:avoid}header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand"><span class="mark">👷</span> CrewMatrix</div>
+      <div class="eyebrow">Pre-launch quality audit</div>
+      <h1>Launch readiness report</h1>
+      <p class="lead">UI/UX, responsiveness, public routes, interactions, authentication connectivity, payment safety, production build and Cloudflare packaging.</p>
+      <div class="meta">Audit updated: 31 July 2026, 03:28 PM PKT · Local production URL: http://localhost:3000</div>
+    </header>
+
+    <main>
+      <section class="verdict">
+        <div class="verdict-badge">CONDITIONAL NO-GO</div>
+        <div>
+          <h2>Public website is ready; full commercial launch is not yet approved.</h2>
+          <p>The visual site and deployment build pass. Real payments and complete signed-in contractor/subcontractor journeys still need external configuration and end-to-end testing.</p>
+        </div>
+      </section>
+
+      <h2>Executive status</h2>
+      <div class="cards">
+        <article class="card"><span class="status pass">● PASS</span><h3>Public UI & responsiveness</h3><p>Desktop and mobile layouts, navigation, headings, pricing, footer and auth screens checked.</p></article>
+        <article class="card"><span class="status pass">● PASS</span><h3>Build & Cloudflare bundle</h3><p>Next.js production build and OpenNext Cloudflare bundle generated successfully.</p></article>
+        <article class="card"><span class="status partial">● PARTIAL</span><h3>Business workflows</h3><p>Client-side flows pass, but real authenticated dashboards and payment lifecycle are not fully proven.</p></article>
+      </div>
+
+      <h2>What has been completed</h2>
+      <div class="checklist">
+        <section class="panel done-panel">
+          <h3>Design and UX fixes</h3>
+          <ul>
+            <li>Menu colors, button readability and responsive alignment corrected.</li>
+            <li>Mobile menu trigger fixed to a full 44 × 44 px tap target.</li>
+            <li>Mobile header crowding fixed by hiding the duplicate login action.</li>
+            <li>Section headings constrained, centered or split into two lines where required.</li>
+            <li>GSAP title-on-scroll and stacked-card interactions retained and checked.</li>
+            <li>Pricing layout, CTA hierarchy and footer presentation improved.</li>
+            <li>CrewMatrix PNG monogram/logo applied consistently across public, auth and setup areas.</li>
+          </ul>
+        </section>
+        <section class="panel done-panel">
+          <h3>Engineering and safety fixes</h3>
+          <ul>
+            <li>Missing page H1 and auth-area main landmark semantics corrected.</li>
+            <li>Development hydration/origin issue fixed for localhost and 127.0.0.1.</li>
+            <li>Unsafe fake “subscription active” fallback removed.</li>
+            <li>Paid plans now activate only through a real Stripe-hosted checkout.</li>
+            <li>Payment outages show a readable alert and never claim a charge succeeded.</li>
+            <li>Checkout form made mobile responsive and controls enlarged.</li>
+            <li>Route guard converted to Cloudflare-compatible Edge middleware.</li>
+          </ul>
+        </section>
+      </div>
+
+      <h2>Test evidence</h2>
+      <p class="sub">Automated checks were supplemented by visual screenshot inspection.</p>
+      <table>
+        <thead><tr><th>Area</th><th>Evidence / result</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Public routes</td><td><code>/</code>, <code>/how-it-works</code>, <code>/pricing</code>, <code>/login</code>, <code>/signup</code> and <code>/forgot-password</code> returned HTTP 200.</td><td><span class="status pass">PASS</span></td></tr>
+          <tr><td>Responsive browser audit</td><td>1440 px desktop and 390 px mobile crawls: no document-level horizontal overflow, broken links, duplicate IDs, runtime errors, console errors or failed page resources.</td><td><span class="status pass">PASS</span></td></tr>
+          <tr><td>Mobile navigation</td><td>Menu opens, dialog state is exposed, background scroll locks, focus handling is present and trigger is 44 × 44 px.</td><td><span class="status pass">PASS</span></td></tr>
+          <tr><td>Pricing interaction</td><td>General contractor/subcontractor switch changes plan set. Paid CTA safely handles unavailable Stripe configuration.</td><td><span class="status pass">PASS</span></td></tr>
+          <tr><td>Login validation</td><td>Invalid inputs receive <code>aria-invalid</code> and linked error descriptions. Backend invalid-login request returned a proper 401, proving server-to-Supabase connectivity.</td><td><span class="status pass">PASS</span></td></tr>
+          <tr><td>Signup UI flow</td><td>Continue begins disabled, role selection updates <code>aria-pressed</code>, and the flow advances to account details.</td><td><span class="status pass">PASS</span></td></tr>
+          <tr><td>Real signup/login lifecycle</td><td>No disposable inbox/test credentials were supplied, so account creation, confirmation email, successful login and session persistence were not executed end to end.</td><td><span class="status partial">PARTIAL</span></td></tr>
+          <tr><td>Authenticated product flows</td><td>Real contractor and subcontractor sessions were not available to verify onboarding, dashboards, projects, bids, messages, teams, settings and RLS isolation end to end.</td><td><span class="status partial">PARTIAL</span></td></tr>
+          <tr><td>Payments</td><td>Fake success was removed, but Stripe checkout, webhook, subscription activation and payout flow cannot run until Stripe secrets and price IDs exist.</td><td><span class="status blocked">BLOCKED</span></td></tr>
+          <tr><td>Code quality</td><td><code>npm run lint</code> completed with zero errors and zero warnings after cleanup.</td><td><span class="status pass">PASS</span></td></tr>
+          <tr><td>Production build</td><td>Next.js compiled, TypeScript passed, 50 static pages generated and route manifest completed.</td><td><span class="status pass">PASS</span></td></tr>
+          <tr><td>Cloudflare package</td><td><code>npm run cf:build</code> completed and generated the OpenNext Worker bundle.</td><td><span class="status pass">PASS</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2>Environment readiness</h2>
+      <table class="config">
+        <thead><tr><th>Variable</th><th>Purpose</th><th>Configured</th></tr></thead>
+        <tbody>
+          <tr><td>SUPABASE_URL</td><td>Authentication and database endpoint</td><td class="yes">YES</td></tr>
+          <tr><td>SUPABASE_ANON_KEY</td><td>Publishable Supabase client/API key</td><td class="yes">YES</td></tr>
+          <tr><td>STRIPE_SECRET_KEY</td><td>Stripe Billing and Connect server calls</td><td class="no">NO</td></tr>
+          <tr><td>STRIPE_WEBHOOK_SECRET</td><td>Secure webhook signature verification</td><td class="no">NO</td></tr>
+          <tr><td>STRIPE_PRICE_PRO</td><td>Subcontractor Pro subscription</td><td class="no">NO</td></tr>
+          <tr><td>STRIPE_PRICE_CREW</td><td>General contractor Crew subscription</td><td class="no">NO</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><strong>Authentication error resolved:</strong> Supabase settings returned HTTP 200 and the local app authentication endpoint reached Supabase successfully. The previous message came from a locally sandboxed server with outbound networking blocked.</div>
+
+      <h2>What remains before full launch</h2>
+      <section class="panel todo-panel">
+        <ol>
+          <li><span class="priority">P0</span>Add Stripe secret, webhook secret and both production/test price IDs as Cloudflare secrets/configuration.</li>
+          <li><span class="priority">P0</span>Create controlled contractor and subcontractor test accounts; verify signup email, successful login, logout and session persistence.</li>
+          <li><span class="priority">P0</span>Run the complete two-sided journey: onboarding → project post → matching → bid → comparison → award → message.</li>
+          <li><span class="priority">P0</span>Run Stripe test-mode checkout, webhook processing, subscription status, failed-payment behavior and cancellation.</li>
+          <li><span class="priority">P0</span>Verify Supabase RLS: one company must not read another company’s private bids, messages or payouts.</li>
+          <li><span class="priority p1">P1</span>Deploy to a preview/live URL and verify OAuth callback URLs, email delivery, cookies, redirects and all primary routes on the real domain.</li>
+          <li><span class="priority p1">P1</span>Physical-device and cross-browser smoke test (Chrome, Safari and Firefox) plus error monitoring.</li>
+        </ol>
+      </section>
+
+      <h2>Final launch decision</h2>
+      <div class="verdict">
+        <div class="verdict-badge">NOT FULL GO YET</div>
+        <div>
+          <h3>Landing/public launch: acceptable. Paid marketplace launch: blocked.</h3>
+          <p>You may publish the marketing website, with paid checkout remaining unavailable. Do not announce a fully operational paid marketplace until every P0 item above passes on the deployed environment.</p>
+        </div>
+      </div>
+    </main>
+
+    <footer>This report describes verified evidence available on 31 July 2026. A successful build does not replace real production-service and authenticated-user testing.</footer>
+  </div>
+</body>
+</html>
