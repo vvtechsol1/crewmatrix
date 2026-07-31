@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button, Field, Input } from "@/components/form";
+import { Button, ButtonSpinner, Field, Input } from "@/components/form";
 
 export function LoginForm() {
   const router = useRouter();
@@ -116,7 +116,8 @@ export function LoginForm() {
           </Link>
         </div>
 
-        <Button type="submit" disabled={busy} className="w-full">
+        <Button type="submit" disabled={busy} aria-busy={busy} className="w-full">
+          {busy && <ButtonSpinner />}
           {busy ? "Signing in…" : "Log in"}
         </Button>
       </form>

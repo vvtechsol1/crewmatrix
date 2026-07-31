@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Building2, HardHat } from "lucide-react";
-import { Button, ChoiceCard, Field, Input, Select, Steps } from "@/components/form";
+import { Button, ButtonSpinner, ChoiceCard, Field, Input, Select, Steps } from "@/components/form";
 import type { Role } from "@/lib/types";
 
 const STATES = ["CO", "AZ", "NM", "UT", "TX", "KS", "NE", "WY"];
@@ -239,7 +239,13 @@ export function SignupFlow() {
             </div>
           )}
 
-          <Button onClick={createAccount} disabled={busy} className="mt-7 w-full">
+          <Button
+            onClick={createAccount}
+            disabled={busy}
+            aria-busy={busy}
+            className="mt-7 w-full"
+          >
+            {busy && <ButtonSpinner />}
             {busy ? "Creating your account…" : "Create account"}
           </Button>
 

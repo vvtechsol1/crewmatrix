@@ -80,6 +80,27 @@ export function Button({
   );
 }
 
+/** Compact progress indicator for async form actions. */
+export function ButtonSpinner({ className }: { className?: string }) {
+  return (
+    <svg
+      className={clsx("size-4 animate-spin", className)}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle className="opacity-25" cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="3" />
+      <path
+        className="opacity-90"
+        d="M21 12a9 9 0 0 0-9-9"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 export function Steps({ current, labels }: { current: number; labels: string[] }) {
   return (
     <ol className="flex items-center gap-2">
